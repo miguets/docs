@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis de Imágenes Digitales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a1e23;
+            color: #e2e8f0;
+        }
+
+        .btn-coral {
+            background-color: #ff7f66;
+            transition: all 0.3s ease;
+        }
+        .btn-coral:hover {
+            background-color: #ff6b4d;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 127, 102, 0.4);
+        }
+
+        .btn-blue {
+            background-color: #6ebcd2;
+            transition: all 0.3s ease;
+        }
+        .btn-blue:hover {
+            background-color: #5aa9bf;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(110, 188, 210, 0.4);
+        }
+
+        .content-card {
+            background-color: #252a33;
+            border-radius: 12px;
+            border: 1px solid #333b45;
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .content-card.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .sub-block {
+            background-color: #2d343f;
+            border-left: 4px solid #6ebcd2;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .math-box {
+            background: #1e252e;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-family: monospace;
+            color: #6ebcd2;
+            display: inline-block;
+            margin: 0.5rem 0;
+        }
+
+        .diagram-container {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .info-highlight {
+            background: #2d343f;
+            border-left: 3px solid #ff7f66;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <header class="max-w-6xl mx-auto text-center mb-12">
+        <h1 class="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-coral-400 to-blue-400 text-transparent bg-clip-text" style="background-image: linear-gradient(to right, #ff7f66, #6ebcd2);">
+            Análisis de Imágenes Digitales
+        </h1>
+        <p class="text-gray-400 text-lg">Temas de la Unidad 1 · Grupo: 7CM3</p>
+        <p class="text-gray-500 text-sm mt-1">Elaborado por Miguel Angel Rafael Villafuerte</p>
+    </header>
+
+    <nav class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-4 mb-12">
+        <button onclick="showContent('info')" class="btn-coral py-6 px-4 rounded-sm text-white font-bold tracking-widest uppercase text-sm shadow-lg">
+            Importancia y Uso
+        </button>
+        <button onclick="showContent('vision')" class="btn-blue py-6 px-4 rounded-sm text-white font-bold tracking-widest uppercase text-sm shadow-lg">
+            Sistema de Visión
+        </button>
+        <button onclick="showContent('adquisicion')" class="btn-coral py-6 px-4 rounded-sm text-white font-bold tracking-widest uppercase text-sm shadow-lg">
+            Adquisición
+        </button>
+        <button onclick="showContent('almacenamiento')" class="btn-blue py-6 px-4 rounded-sm text-white font-bold tracking-widest uppercase text-sm shadow-lg">
+            Almacenamiento
+        </button>
+    </nav>
+
+    <main class="max-w-6xl mx-auto">
+        
+        <div id="welcome" class="text-center py-20 border-2 border-dashed border-gray-700 rounded-xl">
+            <p class="text-gray-500 text-xl italic">Selecciona un tema arriba para visualizar la información.</p>
+        </div>
+
+        <section id="info" class="content-card p-6 md:p-10">
+            <h2 class="text-2xl font-bold mb-6 text-coral-400" style="color: #ff7f66;">Importancia y uso del Análisis de Imágenes</h2>
+            
+            <div class="mb-8 bg-gray-800/50 p-6 rounded-xl flex items-center justify-center border border-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 120" class="w-full max-w-md h-auto">
+                    <defs>
+                        <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                            <rect width="20" height="20" fill="none" stroke="#333b45" stroke-width="1"/>
+                        </pattern>
+                    </defs>
+                    <rect x="50" y="20" width="120" height="80" fill="url(#grid)" rx="4"/>
+                    <rect x="70" y="40" width="20" height="20" fill="#6ebcd2" opacity="0.8"/>
+                    <rect x="110" y="60" width="20" height="20" fill="#ff7f66" opacity="0.8"/>
+                    <rect x="90" y="40" width="20" height="20" fill="#6ebcd2" opacity="0.4"/>
+                    
+                    <circle cx="150" cy="60" r="35" fill="none" stroke="#e2e8f0" stroke-width="4"/>
+                    <line x1="175" y1="85" x2="200" y2="110" stroke="#e2e8f0" stroke-width="6" stroke-linecap="round"/>
+                    
+                    <path d="M 220 60 L 270 60" stroke="#6ebcd2" stroke-width="3" stroke-dasharray="5,5" fill="none"/>
+                    <polygon points="270,55 280,60 270,65" fill="#6ebcd2"/>
+                    
+                    <rect x="300" y="60" width="15" height="40" fill="#ff7f66" rx="2"/>
+                    <rect x="325" y="40" width="15" height="60" fill="#6ebcd2" rx="2"/>
+                    <rect x="350" y="20" width="15" height="80" fill="#e2e8f0" rx="2"/>
+                </svg>
+            </div>
+
+            <div class="info-highlight mb-6">
+                <h4 class="font-bold text-lg mb-2">Definición de Visión por Computador</h4>
+                <p class="text-gray-300">La visión por computador es el campo que estudia cómo hacer que las computadoras puedan "ver" y entender el contenido de imágenes digitales. Este proceso implica la captura, procesamiento y análisis automático de imágenes para extraer información útil.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-3 text-blue-300">Aplicaciones Principales</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-300">
+                        <li><strong>Ciencias de la computación y Robótica:</strong> Navegación autónoma, reconocimiento de objetos</li>
+                        <li><strong>Medicina:</strong> Análisis de Rayos X, Tomografías, Resonancias Magnéticas</li>
+                        <li><strong>Seguridad y Vigilancia:</strong> Reconocimiento facial, detección de intrusos</li>
+                        <li><strong>Control de calidad industrial:</strong> Inspección automática de productos</li>
+                        <li><strong>Teledetección:</strong> Análisis de imágenes satelitales</li>
+                        <li><strong>Agricultura de precisión:</strong> Monitoreo de cultivos</li>
+                    </ul>
+                </div>
+                <div class="sub-block">
+                    <h3 class="text-lg font-bold mb-2">Flujo del Proceso de Captura</h3>
+                    <div class="mb-4">
+                        <div class="flex items-center justify-between text-sm text-center mb-2">
+                            <div class="bg-gray-800 p-2 rounded">Escena<br/>3D</div>
+                            <span class="text-blue-400">→</span>
+                            <div class="bg-gray-800 p-2 rounded">Sensor<br/>CCD/CMOS</div>
+                            <span class="text-blue-400">→</span>
+                            <div class="bg-gray-800 p-2 rounded">Digitalizador<br/>ADC</div>
+                            <span class="text-blue-400">→</span>
+                            <div class="bg-gray-800 p-2 rounded">Aplicación<br/>Software</div>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-3">El proceso convierte información tridimensional en una representación digital bidimensional mediante sensores fotosensibles y conversión analógico-digital.</p>
+                </div>
+            </div>
+
+            <div class="sub-block border-coral-400">
+                <h4 class="font-bold mb-2">Procesamiento Digital de Imágenes</h4>
+                <p class="text-sm text-gray-300 mb-2">El análisis de imágenes digitales permite:</p>
+                <ul class="text-sm text-gray-400 space-y-1">
+                    <li>• <strong>Mejora de imágenes:</strong> Realce de contraste, reducción de ruido, corrección de iluminación</li>
+                    <li>• <strong>Restauración:</strong> Eliminación de degradaciones causadas por el sistema de adquisición</li>
+                    <li>• <strong>Segmentación:</strong> Separación de regiones u objetos de interés</li>
+                    <li>• <strong>Extracción de características:</strong> Identificación de bordes, texturas, formas</li>
+                    <li>• <strong>Reconocimiento:</strong> Clasificación e identificación de patrones</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="vision" class="content-card p-6 md:p-10">
+            <h2 class="text-2xl font-bold mb-6" style="color: #6ebcd2;">Sistema de Visión Humano y Modelo de Cámara</h2>
+            
+            <div class="info-highlight mb-6">
+                <h4 class="font-bold text-lg mb-2">Del Ojo a la Cámara Digital</h4>
+                <p class="text-gray-300">Las cámaras digitales son un diseño inspirado en la biología humana, específicamente en el funcionamiento del ojo. La retina actúa como el sensor CCD/CMOS, el cristalino como el sistema de lentes, y el iris como el diafragma que controla la cantidad de luz.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <p class="mb-4 text-gray-300">El proceso de formación de imágenes transforma información tridimensional (la escena) en una representación bidimensional (el plano de imagen).</p>
+                    
+                    <div class="sub-block">
+                        <h4 class="font-bold">Modelo Pinhole (Estenopeico)</h4>
+                        <p class="text-sm text-gray-400 mb-2">Modelo matemático simplificado de proyección perspectiva:</p>
+                        <ul class="text-sm mt-2 space-y-1">
+                            <li><strong>Apertura pequeña:</strong> Imagen muy enfocada, pero poca entrada de luz</li>
+                            <li><strong>Apertura grande:</strong> Más luz, pero imagen difuminada (efecto bokeh)</li>
+                            <li><strong>Perspectiva:</strong> Los objetos lejanos se proyectan más pequeños</li>
+                        </ul>
+                        <div class="math-box mt-2">Proyección: (u, v) = (x/z, y/z)</div>
+                        <p class="text-xs text-gray-500 mt-2">Donde (x, y, z) son coordenadas 3D y (u, v) coordenadas 2D en el plano de imagen</p>
+                    </div>
+
+                    <div class="sub-block mt-4 border-coral-400">
+                        <h4 class="font-bold mb-2">Círculo de Confusión</h4>
+                        <p class="text-sm text-gray-400">La imagen estará enfocada cuando el tamaño del círculo de confusión sea menor que el tamaño de cada celda del sensor fotosensible. Este concepto determina la profundidad de campo de la imagen.</p>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-100 p-4 rounded-lg flex flex-col items-center">
+                    <span class="text-gray-800 font-bold mb-2">Diagrama de Proyección Perspectiva</span>
+                    <svg viewBox="0 0 200 120" class="w-full h-auto max-w-xs">
+                        <line x1="10" y1="10" x2="190" y2="110" stroke="#ff7f66" stroke-width="1" stroke-dasharray="2"/>
+                        <line x1="10" y1="110" x2="190" y2="10" stroke="#ff7f66" stroke-width="1" stroke-dasharray="2"/>
+                        <rect x="160" y="30" width="30" height="60" fill="none" stroke="#6ebcd2" stroke-width="2"/>
+                        <text x="165" y="65" font-size="8" fill="#1a1e23">Plano 2D</text>
+                        <circle cx="100" cy="60" r="3" fill="#1a1e23"/>
+                        <text x="90" y="55" font-size="8" fill="#1a1e23">Pinhole</text>
+                    </svg>
+                    <p class="text-gray-700 text-xs mt-2 text-center">Modelo de proyección donde todos los rayos pasan por un punto (pinhole) antes de formar la imagen</p>
+                </div>
+            </div>
+            
+            <div class="mt-12 border-t border-gray-700 pt-8">
+                <h3 class="text-xl font-bold mb-6 text-center">Componentes de Cámara Digital</h3>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-sm text-center">
+                    
+                    <div class="p-4 bg-gray-800 rounded-xl border border-gray-700 flex flex-col items-center shadow-lg hover:border-coral-400 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-16 h-16 mb-4">
+                            <circle cx="50" cy="50" r="45" fill="none" stroke="#e2e8f0" stroke-width="4"/>
+                            <circle cx="50" cy="50" r="20" fill="none" stroke="#ff7f66" stroke-width="2"/>
+                            <polygon points="50,30 70,15 45,5" fill="none" stroke="#6ebcd2" stroke-width="2"/>
+                            <polygon points="70,50 85,30 95,55" fill="none" stroke="#6ebcd2" stroke-width="2"/>
+                            <polygon points="50,70 30,85 55,95" fill="none" stroke="#6ebcd2" stroke-width="2"/>
+                            <polygon points="30,50 15,70 5,45" fill="none" stroke="#6ebcd2" stroke-width="2"/>
+                            <polygon points="40,20 20,30 15,10" fill="none" stroke="#6ebcd2" stroke-width="2"/>
+                            <polygon points="60,80 80,70 85,90" fill="none" stroke="#6ebcd2" stroke-width="2"/>
+                        </svg>
+                        <span class="font-bold text-gray-200 mb-1">Objetivo / Diafragma</span>
+                        <p class="text-xs text-gray-400">Controla la cantidad de luz y el enfoque mediante lentes y apertura variable</p>
+                    </div>
+
+                    <div class="p-4 bg-gray-800 rounded-xl border border-gray-700 flex flex-col items-center shadow-lg hover:border-blue-400 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-16 h-16 mb-4">
+                            <rect x="20" y="20" width="60" height="60" rx="5" fill="#2d343f" stroke="#e2e8f0" stroke-width="4"/>
+                            <path d="M 35 20 L 35 80 M 50 20 L 50 80 M 65 20 L 65 80" stroke="#333b45" stroke-width="2"/>
+                            <path d="M 20 35 L 80 35 M 20 50 L 80 50 M 20 65 L 80 65" stroke="#333b45" stroke-width="2"/>
+                            <path d="M 10 30 L 20 30 M 10 45 L 20 45 M 10 60 L 20 60 M 10 70 L 20 70" stroke="#6ebcd2" stroke-width="4"/>
+                            <path d="M 80 30 L 90 30 M 80 45 L 90 45 M 80 60 L 90 60 M 80 70 L 90 70" stroke="#6ebcd2" stroke-width="4"/>
+                            <rect x="35" y="35" width="30" height="30" fill="#ff7f66" opacity="0.8" rx="2"/>
+                        </svg>
+                        <span class="font-bold text-gray-200 mb-1">Sensor CCD / CMOS</span>
+                        <p class="text-xs text-gray-400">Matriz de fotodiodos que convierte luz en señales eléctricas</p>
+                    </div>
+
+                    <div class="p-4 bg-gray-800 rounded-xl border border-gray-700 flex flex-col items-center shadow-lg hover:border-coral-400 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-16 h-16 mb-4">
+                            <rect x="10" y="10" width="35" height="35" fill="#ef4444" rx="4"/>
+                            <rect x="55" y="10" width="35" height="35" fill="#22c55e" rx="4"/>
+                            <rect x="10" y="55" width="35" height="35" fill="#22c55e" rx="4"/>
+                            <rect x="55" y="55" width="35" height="35" fill="#3b82f6" rx="4"/>
+                        </svg>
+                        <span class="font-bold text-gray-200 mb-1">Filtro RGB (Bayer)</span>
+                        <p class="text-xs text-gray-400">Patrón de filtros de color (50% verde, 25% rojo, 25% azul) para captura de color</p>
+                    </div>
+
+                    <div class="p-4 bg-gray-800 rounded-xl border border-gray-700 flex flex-col items-center shadow-lg hover:border-blue-400 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="w-16 h-16 mb-4">
+                            <polyline points="10,90 10,10" stroke="#e2e8f0" stroke-width="2" fill="none"/>
+                            <polyline points="10,90 90,90" stroke="#e2e8f0" stroke-width="2" fill="none"/>
+                            <path d="M 10 50 Q 30 10 50 50 T 90 50" stroke="#333b45" stroke-width="3" fill="none" stroke-dasharray="4,4"/>
+                            <path d="M 10 70 L 30 70 L 30 30 L 50 30 L 50 70 L 70 70 L 70 50 L 90 50" stroke="#6ebcd2" stroke-width="4" fill="none"/>
+                            <circle cx="30" cy="30" r="4" fill="#ff7f66"/>
+                            <circle cx="50" cy="70" r="4" fill="#ff7f66"/>
+                            <circle cx="70" cy="50" r="4" fill="#ff7f66"/>
+                        </svg>
+                        <span class="font-bold text-gray-200 mb-1">Conversor ADC</span>
+                        <p class="text-xs text-gray-400">Convierte señales analógicas del sensor en valores digitales discretos</p>
+                    </div>
+
+                </div>
+
+                <div class="info-highlight mt-8">
+                    <h4 class="font-bold mb-2">Proceso de Digitalización</h4>
+                    <p class="text-sm text-gray-300">La luz incide en el sensor y genera señales eléctricas proporcionales a la intensidad. El conversor ADC (Analógico-Digital) muestrea estas señales y las cuantifica en valores binarios (0s y 1s), creando así la representación digital de la imagen.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="adquisicion" class="content-card p-6 md:p-10">
+            <h2 class="text-2xl font-bold mb-6" style="color: #ff7f66;">Adquisición y Creación de Imágenes Digitales</h2>
+            
+            <div class="info-highlight mb-6">
+                <h4 class="font-bold text-lg mb-2">Representación Matemática de la Imagen</h4>
+                <p class="text-gray-300 mb-2">Una imagen digital se representa como una matriz numérica de dimensión M×N donde:</p>
+                <div class="math-box">f(x,y) = i(x,y) × r(x,y)</div>
+                <p class="text-sm text-gray-400 mt-2">Donde <strong>i(x,y)</strong> es la iluminación y <strong>r(x,y)</strong> es la reflectancia del objeto (0 &lt; r(x,y) &lt; 1)</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="sub-block border-blue-400">
+                    <h4 class="font-bold mb-2">Muestreo y Cuantización</h4>
+                    <p class="text-xs text-gray-400 mb-2">Transformación de continuo a discreto</p>
+                    <div class="math-box text-xs">f(x,y) = i(x,y) × r(x,y)</div>
+                    <ul class="text-xs mt-2 space-y-1">
+                        <li><strong>Muestreo espacial (Δx, Δy):</strong> Discretización de las coordenadas espaciales</li>
+                        <li><strong>Cuantización de amplitud:</strong> 2<sup>b</sup> niveles de intensidad (b bits)</li>
+                        <li><strong>Píxel:</strong> Unidad mínima ("picture element")</li>
+                        <li><strong>Resolución:</strong> Determinada por el espaciado del muestreo</li>
+                    </ul>
+                </div>
+                
+                <div class="sub-block border-blue-400">
+                    <h4 class="font-bold mb-2">El Histograma</h4>
+                    <svg viewBox="0 0 100 50" class="w-full h-16 bg-gray-900 rounded mb-2">
+                        <rect x="5" y="30" width="5" height="15" fill="#6ebcd2" />
+                        <rect x="15" y="20" width="5" height="25" fill="#6ebcd2" />
+                        <rect x="25" y="10" width="5" height="35" fill="#6ebcd2" />
+                        <rect x="35" y="25" width="5" height="20" fill="#6ebcd2" />
+                        <rect x="45" y="5" width="5" height="40" fill="#6ebcd2" />
+                        <rect x="55" y="15" width="5" height="30" fill="#6ebcd2" />
+                    </svg>
+                    <p class="text-xs mb-2">Gráfico de distribución de frecuencias de niveles de intensidad</p>
+                    <ul class="text-xs text-gray-400">
+                        <li>• Analiza contraste y rango tonal</li>
+                        <li>• Identifica problemas de exposición</li>
+                        <li>• Guía ajustes de procesamiento</li>
+                    </ul>
+                </div>
+                
+                <div class="sub-block border-blue-400">
+                    <h4 class="font-bold mb-2">Conversión a Escala de Grises</h4>
+                    <p class="text-xs mb-2">Fórmula ponderada (8 bits = 256 tonos):</p>
+                    <div class="math-box text-[10px]">Y = 0.299R + 0.587G + 0.114B</div>
+                    <p class="text-xs text-gray-400 mt-2">Los coeficientes reflejan la sensibilidad del ojo humano, siendo más sensible al verde</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div class="bg-gray-800 p-5 rounded-lg">
+                    <h3 class="font-bold mb-4 text-blue-300">Tipos de Imágenes Digitales</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <span class="text-coral-300 font-bold block">Imágenes Binarias (1 bit)</span>
+                            <p class="text-sm text-gray-400">Solo 0 y 255 (blanco/negro). Ideal para OCR, detección de bordes y documentos. Tamaño de archivo muy reducido.</p>
+                        </div>
+                        <div>
+                            <span class="text-coral-300 font-bold block">Imágenes en Escala de Grises (8 bits)</span>
+                            <p class="text-sm text-gray-400">256 tonos de gris (0-255). Usado en imágenes médicas, fotografía artística y procesamiento intermedio.</p>
+                        </div>
+                        <div>
+                            <span class="text-coral-300 font-bold block">Imágenes Color RGB (24 bits)</span>
+                            <p class="text-sm text-gray-400">3 canales de 8 bits cada uno = 16.7 millones de colores (256³). Estándar para fotografía digital y pantallas.</p>
+                        </div>
+                        <div>
+                            <span class="text-coral-300 font-bold block">Imágenes CMYK (32 bits)</span>
+                            <p class="text-sm text-gray-400">4 canales para impresión: Cyan, Magenta, Yellow, Black. Modelo sustractivo usado en artes gráficas.</p>
+                        </div>
+                        <div>
+                            <span class="text-coral-300 font-bold block">Raster vs Vectorial</span>
+                            <p class="text-sm text-gray-400">Raster: mosaico de píxeles, depende de resolución. Vectorial: ecuaciones matemáticas, escalable sin pérdida.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col justify-center">
+                    <div class="relative w-48 h-48 bg-gray-900 rounded-lg flex items-center justify-center border border-gray-600 mx-auto">
+                        <div class="absolute w-24 h-24 bg-red-500 opacity-50 -translate-x-4 -translate-y-4 rounded shadow-lg flex items-end p-1 text-[10px] font-bold">R</div>
+                        <div class="absolute w-24 h-24 bg-green-500 opacity-50 translate-x-0 translate-y-0 rounded shadow-lg flex items-end p-1 text-[10px] font-bold">G</div>
+                        <div class="absolute w-24 h-24 bg-blue-500 opacity-50 translate-x-4 translate-y-4 rounded shadow-lg flex items-end p-1 text-[10px] font-bold">B</div>
+                    </div>
+                    <p class="text-center text-sm text-gray-400 mt-4">Síntesis aditiva RGB: la combinación de los tres canales genera el espectro completo de colores visibles</p>
+
+                    <div class="sub-block mt-6 border-coral-400">
+                        <h4 class="font-bold mb-2">Profundidad de Bits</h4>
+                        <div class="text-xs space-y-1">
+                            <p><strong>1 bit:</strong> 2 colores (2¹)</p>
+                            <p><strong>8 bits:</strong> 256 tonos (2⁸)</p>
+                            <p><strong>24 bits:</strong> 16,777,216 colores (2²⁴)</p>
+                            <p><strong>48 bits:</strong> 281 billones de colores (uso profesional)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-highlight">
+                <h4 class="font-bold mb-2">Dimensiones de la Imagen Digital</h4>
+                <p class="text-sm text-gray-300 mb-2">Una imagen digital se expresa como:</p>
+                <div class="math-box text-sm">f(Δx·i, Δy·j); i=0,...,M-1; j=0,...,N-1</div>
+                <p class="text-sm text-gray-400 mt-2">Donde M es el número de filas, N el número de columnas, y cada posición (i,j) contiene el valor de intensidad del píxel correspondiente.</p>
+            </div>
+        </section>
+
+        <section id="almacenamiento" class="content-card p-6 md:p-10">
+            <h2 class="text-2xl font-bold mb-6" style="color: #6ebcd2;">Almacenamiento de Imágenes Digitales</h2>
+            
+            <div class="mb-8 flex justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 120" class="w-full max-w-lg h-auto">
+                    <rect x="50" y="20" width="60" height="80" fill="#2d343f" stroke="#e2e8f0" stroke-width="3" rx="4"/>
+                    <polygon points="110,20 80,20 80,50" fill="#e2e8f0"/>
+                    <circle cx="80" cy="65" r="10" fill="#ff7f66"/>
+                    <polygon points="65,90 80,75 95,90" fill="#6ebcd2"/>
+                    
+                    <path d="M 130 60 L 220 60" stroke="#e2e8f0" stroke-width="4" stroke-dasharray="8,4" fill="none"/>
+                    <polygon points="220,50 240,60 220,70" fill="#e2e8f0"/>
+                    
+                    <text x="140" y="45" fill="#6ebcd2" font-family="monospace" font-size="12" font-weight="bold">01101001</text>
+                    <text x="145" y="85" fill="#ff7f66" font-family="monospace" font-size="12" font-weight="bold">10010110</text>
+
+                    <rect x="260" y="20" width="100" height="80" fill="#1a1e23" stroke="#6ebcd2" stroke-width="4" rx="8"/>
+                    <line x1="280" y1="40" x2="340" y2="40" stroke="#333b45" stroke-width="4"/>
+                    <line x1="280" y1="55" x2="340" y2="55" stroke="#333b45" stroke-width="4"/>
+                    <circle cx="310" cy="80" r="15" fill="none" stroke="#ff7f66" stroke-width="3"/>
+                    <circle cx="310" cy="80" r="5" fill="#ff7f66"/>
+                    <path d="M 285 80 Q 310 50 310 80" stroke="#e2e8f0" stroke-width="2" fill="none"/>
+                </svg>
+            </div>
+
+            <div class="info-highlight mb-6">
+                <h4 class="font-bold text-lg mb-2">Compresión de Datos</h4>
+                <p class="text-gray-300">La compresión reduce la cantidad de datos necesarios para representar una imagen eliminando redundancia. Se basa en la diferencia entre <strong>información</strong> (contenido esencial) y <strong>datos</strong> (forma de representación).</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div class="p-6 bg-red-900/20 border border-red-500/30 rounded-xl">
+                    <h3 class="text-lg font-bold mb-4">Estrategias de Compresión</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3">
+                            <div class="bg-red-500 p-2 rounded mt-1"></div>
+                            <div>
+                                <span class="font-bold">Lossless (Sin Pérdida)</span>
+                                <p class="text-sm text-gray-400">Reconstrucción exacta del original. Métodos: RLE, LZW, ZIP. Formatos: PNG, BMP, TIFF sin compresión.</p>
+                                <p class="text-xs text-gray-500 mt-1">Ratio típico: 2:1 a 3:1</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="bg-blue-500 p-2 rounded mt-1"></div>
+                            <div>
+                                <span class="font-bold">Lossy (Con Pérdida)</span>
+                                <p class="text-sm text-gray-400">Descarta información redundante o imperceptible. Alta compresión. Formato principal: JPEG.</p>
+                                <p class="text-xs text-gray-500 mt-1">Ratio típico: 10:1 a 50:1</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sub-block mt-4 border-coral-400">
+                        <h4 class="font-bold text-sm mb-2">Tipos de Redundancia Eliminable</h4>
+                        <ul class="text-xs text-gray-400 space-y-1">
+                            <li>• <strong>Código redundante:</strong> Uso ineficiente de bits</li>
+                            <li>• <strong>Píxeles redundantes:</strong> Correlación espacial entre píxeles vecinos</li>
+                            <li>• <strong>Redundancia visual:</strong> Información imperceptible al ojo humano</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="p-6 bg-blue-900/20 border border-blue-500/30 rounded-xl">
+                    <h3 class="text-lg font-bold mb-4">Profundidad de Color</h3>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between border-b border-gray-700 py-1">
+                            <span>1 bit</span>
+                            <span class="text-gray-400">Blanco / Negro (2 colores)</span>
+                        </div>
+                        <div class="flex justify-between border-b border-gray-700 py-1">
+                            <span>8 bits</span>
+                            <span class="text-gray-400">256 Tonos de gris o color indexado</span>
+                        </div>
+                        <div class="flex justify-between border-b border-gray-700 py-1">
+                            <span>16 bits</span>
+                            <span class="text-gray-400">65,536 colores (High Color)</span>
+                        </div>
+                        <div class="flex justify-between border-b border-gray-700 py-1">
+                            <span>24 bits</span>
+                            <span class="text-gray-400">16.7M Colores (True Color RGB)</span>
+                        </div>
+                        <div class="flex justify-between py-1">
+                            <span>32 bits</span>
+                            <span class="text-gray-400">RGBA (24 bits + 8 alpha) o CMYK</span>
+                        </div>
+                    </div>
+
+                    <div class="sub-block mt-4 border-blue-400">
+                        <h4 class="font-bold text-sm mb-2">Cálculo de Tamaño de Archivo</h4>
+                        <p class="text-xs text-gray-400 mb-2">Tamaño sin compresión:</p>
+                        <div class="math-box text-xs">Tamaño = M × N × (bits/píxel) / 8</div>
+                        <p class="text-xs text-gray-500 mt-2">Ejemplo: 1920×1080 píxeles, 24 bits → 1920 × 1080 × 3 = 6.22 MB</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-bold mb-4">Formatos de Archivo</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                    <span class="text-coral-400 font-black text-xl">BMP</span>
+                    <p class="text-xs text-gray-400 mt-1"><strong>Tipo:</strong> Raster sin compresión (o RLE)</p>
+                    <p class="text-xs text-gray-400"><strong>Uso:</strong> Windows, archivos pesados, máxima calidad</p>
+                    <p class="text-xs text-gray-500 mt-1">Profundidad: 1, 4, 8, 16, 24, 32 bits</p>
+                </div>
+                
+                <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                    <span class="text-coral-400 font-black text-xl">TIFF</span>
+                    <p class="text-xs text-gray-400 mt-1"><strong>Tipo:</strong> Raster, compresión sin pérdida</p>
+                    <p class="text-xs text-gray-400"><strong>Uso:</strong> Fotografía profesional, impresión, edición</p>
+                    <p class="text-xs text-gray-500 mt-1">Soporta capas, múltiples páginas, metadata EXIF</p>
+                </div>
+                
+                <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                    <span class="text-blue-400 font-black text-xl">PNG</span>
+                    <p class="text-xs text-gray-400 mt-1"><strong>Tipo:</strong> Raster, compresión ZIP sin pérdida</p>
+                    <p class="text-xs text-gray-400"><strong>Uso:</strong> Web, transparencias, gráficos</p>
+                    <p class="text-xs text-gray-500 mt-1">Canal alpha, profundidad 8/16 bits por canal</p>
+                </div>
+                
+                <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                    <span class="text-coral-400 font-black text-xl">JPEG</span>
+                    <p class="text-xs text-gray-400 mt-1"><strong>Tipo:</strong> Raster, compresión con pérdida</p>
+                    <p class="text-xs text-gray-400"><strong>Uso:</strong> Fotografía, web, estándar universal</p>
+                    <p class="text-xs text-gray-500 mt-1">Compresión ajustable, basado en DCT, elimina alta frecuencia</p>
+                </div>
+                
+                <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                    <span class="text-blue-400 font-black text-xl">RAW</span>
+                    <p class="text-xs text-gray-400 mt-1"><strong>Tipo:</strong> Datos brutos del sensor</p>
+                    <p class="text-xs text-gray-400"><strong>Uso:</strong> Fotografía profesional, máxima calidad</p>
+                    <p class="text-xs text-gray-500 mt-1">12-16 bits/canal, requiere procesamiento, formatos propietarios (.CR2, .NEF, .ARW)</p>
+                </div>
+                
+                <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                    <span class="text-coral-400 font-black text-xl">SVG</span>
+                    <p class="text-xs text-gray-400 mt-1"><strong>Tipo:</strong> Vectorial (XML)</p>
+                    <p class="text-xs text-gray-400"><strong>Uso:</strong> Logos, iconos, gráficos escalables</p>
+                    <p class="text-xs text-gray-500 mt-1">Escalable infinitamente, tamaño pequeño, editable</p>
+                </div>
+                
+                <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                    <span class="text-blue-400 font-black text-xl">GIF</span>
+                    <p class="text-xs text-gray-400 mt-1"><strong>Tipo:</strong> Raster, paleta indexada</p>
+                    <p class="text-xs text-gray-400"><strong>Uso:</strong> Animaciones simples, web</p>
+                    <p class="text-xs text-gray-500 mt-1">Limitado a 256 colores, compresión LZW, transparencia binaria</p>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                    <span class="text-coral-400 font-black text-xl">WebP</span>
+                    <p class="text-xs text-gray-400 mt-1"><strong>Tipo:</strong> Raster, compresión lossy/lossless</p>
+                    <p class="text-xs text-gray-400"><strong>Uso:</strong> Web moderna, sustituto de JPEG/PNG</p>
+                    <p class="text-xs text-gray-500 mt-1">Mejor compresión que JPEG, soporta transparencia y animación</p>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded-lg border border-gray-700">
+                    <span class="text-blue-400 font-black text-xl">PDF</span>
+                    <p class="text-xs text-gray-400 mt-1"><strong>Tipo:</strong> Contenedor (raster + vectorial)</p>
+                    <p class="text-xs text-gray-400"><strong>Uso:</strong> Documentos, impresión, intercambio</p>
+                    <p class="text-xs text-gray-500 mt-1">Multiplataforma, preserva diseño, embebe fuentes</p>
+                </div>
+            </div>
+
+            <div class="info-highlight">
+                <h4 class="font-bold mb-2">Resolución Óptima según Uso</h4>
+                <div class="grid md:grid-cols-3 gap-4 text-sm">
+                    <div>
+                        <p class="font-bold text-blue-300">Pantalla/Web</p>
+                        <p class="text-gray-400">72-96 DPI (píxeles por pulgada)</p>
+                        <p class="text-xs text-gray-500">Formato: JPEG, PNG, WebP</p>
+                    </div>
+                    <div>
+                        <p class="font-bold text-blue-300">Impresión Doméstica</p>
+                        <p class="text-gray-400">150-300 DPI</p>
+                        <p class="text-xs text-gray-500">Formato: JPEG, PNG, TIFF</p>
+                    </div>
+                    <div>
+                        <p class="font-bold text-blue-300">Impresión Profesional</p>
+                        <p class="text-gray-400">300-600 DPI</p>
+                        <p class="text-xs text-gray-500">Formato: TIFF, PSD, PDF</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="mt-20 text-center text-gray-600 text-sm border-t border-gray-800 pt-8 pb-12">
+        <p>Miguets &bull; 2026</p>
+    </footer>
+
+    <script>
+        function showContent(sectionId) {
+            // Hide welcome message
+            document.getElementById('welcome').style.display = 'none';
+            
+            // Get all sections
+            const sections = document.querySelectorAll('.content-card');
+            
+            // Hide all sections and remove active class
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            const activeSection = document.getElementById(sectionId);
+            activeSection.classList.add('active');
+            
+            // Scroll to content for mobile users
+            window.scrollTo({
+                top: activeSection.offsetTop - 50,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>
